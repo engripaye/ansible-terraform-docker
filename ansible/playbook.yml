@@ -1,0 +1,17 @@
+- name: Setup NGINX in Docker container
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - nginx
+
+    - name: Copy HTML page
+      copy:
+        src: ../index.html
+        dest: /var/www/html/index.html
