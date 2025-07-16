@@ -8,9 +8,7 @@ terraform {
 }
 
 provider "docker" {
-  # Windows Docker Engine
-  host = "npipe:////./pipe/docker_engine"  # <-- use this on Windows
-
+  host = "npipe:////./pipe/docker_engine"  # Windows Docker host
 }
 
 resource "docker_image" "ubuntu" {
@@ -23,7 +21,7 @@ resource "docker_image" "ubuntu" {
 
 resource "docker_container" "webserver" {
   name  = "webserver"
-  image = docker_image.ubuntu.image_id
+  image = docker_image.ubuntu.latest
 
   ports {
     internal = 22
